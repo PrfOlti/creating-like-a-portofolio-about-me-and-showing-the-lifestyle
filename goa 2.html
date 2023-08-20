@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GOA</title>
+</head>
+<style>
+    #myVideo {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+    z-index: -1;
+}
+.content {
+  position: fixed;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  color: #f1f1f1;
+  width: 100%;
+  padding: 20px;
+  }
+  #imageContainer {
+      position: relative;
+       width: 100%; /* Set container width */
+      height: 100vh; /* Set container height */
+    }
+    #imageContainer img {
+      position: absolute;
+      top: 50%; /* Adjust vertical position */
+      left: 50%; /* Adjust horizontal position */
+      transform: translate(-50%, -50%); /* Center the image */
+      transition: opacity 1s ease-in-out;
+      width: 300px;
+    }
+     #thanksText {
+      display: none;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 24px;
+      color: white;
+      background-color: rgba(0, 0, 0, 0.7);
+      padding: 10px;
+      border-radius: 5px;
+    }
+</style>
+<body>
+    <video src="photosss/tunnel_-_27438 (1080p).mp4" autoplay muted loop id="myVideo">
+        <source src="photosss/tunnel_-_26475 (1080p).mp4" type="video/mp4">
+    </video>>
+    <div id="imageContainer">
+        <img id="currentImage" src="photosss/IMG_20220924_210727_331.webp" alt="Image 1">
+    </div>
+    
+    <script>
+        var images = [
+            "IMG_20230301_173935_598.webp",
+            "IMG_20230603_203746_909.webp",
+            "IMG_20230614_200205_609.webp",
+            "IMG_20230816_095710_217.webp",
+            "IMG_20230507_195334_200.webp",
+
+        ];
+
+        var currentImageIndex = 0;
+        var imageElement = document.getElementById("currentImage");
+        var imagesToShow = 5;
+        var completed = false;
+
+        function toggleImages() {
+            if (completed) return;
+
+            imageElement.style.opacity = "0";
+
+            setTimeout(function () {
+                currentImageIndex = (currentImageIndex + 1) % images.length;
+                imageElement.src = images[currentImageIndex];
+                imageElement.style.opacity = "1";
+
+                if (currentImageIndex + 1 === imagesToShow) {
+                    clearInterval(imageInterval);
+                    completed = true;
+                    showThanksText();
+                }
+            }, 1000);
+        }
+
+        function showThanksText() {
+            var thanksText = document.getElementById("thanksText");
+            thanksText.style.display = "block";
+        }
+
+        var imageInterval = setInterval(toggleImages, 10000);
+    </script>
+</body>
+</html>
